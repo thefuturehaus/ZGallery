@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         ZGallery.with(this, getDummyImageList())
                 .setToolbarTitleColor(Color.WHITE)
                 .setGalleryBackgroundColor(Color.WHITE)
+                .setGalleryCaptionColor(Color.BLACK)
                 .setToolbarColor(getResources().getColor(R.color.colorPrimary))
-                .setCaptionColor(Color.BLACK)
                 .setTitle("Zak Gallery")
                 .setShowHorizontalList(false)
                 .show();
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         ZGallery.with(this, getDummyImageList())
                 .setToolbarTitleColor(Color.BLACK)
                 .setGalleryBackgroundColor(Color.LTGRAY)
+                .setGalleryCaptionColor(Color.DKGRAY)
                 .setToolbarColor(getResources().getColor(R.color.colorPrimary))
-                .setCaptionColor(Color.DKGRAY)
                 .setTitle("Zak Gallery")
                 .setShowHorizontalList(false)
                 .show();

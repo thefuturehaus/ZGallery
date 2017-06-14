@@ -75,17 +75,6 @@ public class ZGallery {
     }
 
     /**
-     * Setting text caption color {@link android.graphics.Color}
-     *
-     * @param color
-     * @return
-     */
-    public ZGallery setCaptionColor(int color) {
-        this.captionColor = color;
-        return this;
-    }
-
-    /**
      * Setting starting position
      *
      * @param selectedImgPosition
