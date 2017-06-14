@@ -1,10 +1,11 @@
 package com.mzelzoghbi.zgallery.activities;
 
-import android.support.v4.content.ContextCompat;
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.mzelzoghbi.zgallery.Constants;
@@ -13,7 +14,6 @@ import com.mzelzoghbi.zgallery.OnImgClick;
 import com.mzelzoghbi.zgallery.R;
 import com.mzelzoghbi.zgallery.adapters.HorizontalListAdapters;
 import com.mzelzoghbi.zgallery.adapters.ViewPagerAdapter;
-import com.mzelzoghbi.zgallery.entities.ZColor;
 
 /**
  * Created by mohamedzakaria on 8/11/16.
@@ -27,7 +27,8 @@ public class ZGalleryActivity extends BaseActivity {
     LinearLayoutManager mLayoutManager;
     HorizontalListAdapters hAdapter;
     private int currentPos;
-    private ZColor bgColor;
+    private int bgColor;
+    private int captionColor;
 
 
     @Override
@@ -44,18 +45,17 @@ public class ZGalleryActivity extends BaseActivity {
 
         // get intent data
         currentPos = getIntent().getIntExtra(Constants.IntentPassingParams.SELECTED_IMG_POS, 0);
-        bgColor = (ZColor) getIntent().getSerializableExtra(Constants.IntentPassingParams.BG_COLOR);
+        bgColor = getIntent().getIntExtra(Constants.IntentPassingParams.BG_COLOR, Color.BLACK);
+        captionColor = getIntent().getIntExtra(Constants.IntentPassingParams.CAPTION_COLOR, Color.WHITE);
 
-        if (bgColor == ZColor.WHITE) {
-            mainLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white));
-        }
+        mainLayout.setBackgroundColor(bgColor);
 
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         // pager adapter
-        adapter = new ViewPagerAdapter(this, imageURLs, mToolbar, imagesHorizontalList);
+        adapter = new ViewPagerAdapter(this, images, mToolbar, imagesHorizontalList, captionColor);
         mViewPager.setAdapter(adapter);
         // horizontal list adaapter
-        hAdapter = new HorizontalListAdapters(this, imageURLs, new OnImgClick() {
+        hAdapter = new HorizontalListAdapters(this, images, new OnImgClick() {
             @Override
             public void onClick(int pos) {
                 mViewPager.setCurrentItem(pos, true);
@@ -84,6 +84,8 @@ public class ZGalleryActivity extends BaseActivity {
 
         hAdapter.setSelectedItem(currentPos);
         mViewPager.setCurrentItem(currentPos);
+
+        imagesHorizontalList.setVisibility(showHorizontalList ? View.VISIBLE : View.GONE);
     }
 
     @Override

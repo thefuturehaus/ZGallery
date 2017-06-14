@@ -2,9 +2,9 @@ package com.mzelzoghbi.zgallery;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 
 import com.mzelzoghbi.zgallery.activities.ZGridActivity;
-import com.mzelzoghbi.zgallery.entities.ZColor;
 
 import java.util.ArrayList;
 
@@ -13,27 +13,27 @@ import java.util.ArrayList;
  */
 public class ZGrid {
     private Activity mActivity;
-    private ArrayList<String> imagesURLs;
+    private ArrayList<ZImage> images;
     private String title;
     private int spanCount = 2;
-    private int toolbarColor = -1;
+    private int toolbarColor = Color.BLACK;
     private int imgPlaceHolderResId = -1;
-    private ZColor color;
+    private int color;
 
     private ZGrid() {
     }
 
     /**
      * @param activity   Refrence from current activity
-     * @param imagesURLs Image URLs to be displayed
+     * @param images Image URLs to be displayed
      */
-    public static ZGrid with(Activity activity, ArrayList<String> imagesURLs) {
-        return new ZGrid(activity, imagesURLs);
+    public static ZGrid with(Activity activity, ArrayList<ZImage> images) {
+        return new ZGrid(activity, images);
     }
 
 
-    private ZGrid(Activity activity, ArrayList<String> imagesURLs) {
-        this.imagesURLs = imagesURLs;
+    private ZGrid(Activity activity, ArrayList<ZImage> images) {
+        this.images = images;
         this.mActivity = activity;
     }
 
@@ -60,13 +60,13 @@ public class ZGrid {
     }
 
     /**
-     * Setting toolbar Color ResourceId
+     * Setting toolbar {@link Color}
      *
-     * @param colorResId
+     * @param color
      * @return
      */
-    public ZGrid setToolbarColorResId(int colorResId) {
-        this.toolbarColor = colorResId;
+    public ZGrid setToolbarColor(int color) {
+        this.toolbarColor = color;
         return this;
     }
 
@@ -86,7 +86,7 @@ public class ZGrid {
      * @param color enum color may be black or white
      * @return
      */
-    public ZGrid setToolbarTitleColor(ZColor color) {
+    public ZGrid setToolbarTitleColor(int color) {
         this.color = color;
         return this;
     }
@@ -95,10 +95,10 @@ public class ZGrid {
      */
     public void show() {
         Intent gridActivity = new Intent(mActivity, ZGridActivity.class);
-        gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, imagesURLs);
+        gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, images);
         gridActivity.putExtra(Constants.IntentPassingParams.COUNT, spanCount);
         gridActivity.putExtra(Constants.IntentPassingParams.TITLE, title);
-        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR_ID, toolbarColor);
+        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
         gridActivity.putExtra(Constants.IntentPassingParams.IMG_PLACEHOLDER, imgPlaceHolderResId);
         gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, color);
         mActivity.startActivity(gridActivity);

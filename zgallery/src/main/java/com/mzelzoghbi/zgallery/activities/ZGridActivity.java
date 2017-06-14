@@ -1,5 +1,6 @@
 package com.mzelzoghbi.zgallery.activities;
 
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -9,7 +10,6 @@ import com.mzelzoghbi.zgallery.R;
 import com.mzelzoghbi.zgallery.ZGallery;
 import com.mzelzoghbi.zgallery.adapters.GridImagesAdapter;
 import com.mzelzoghbi.zgallery.adapters.listeners.GridClickListener;
-import com.mzelzoghbi.zgallery.entities.ZColor;
 
 /**
  * Created by mohamedzakaria on 8/6/16.
@@ -34,7 +34,7 @@ public final class ZGridActivity extends BaseActivity implements GridClickListen
         imgPlaceHolderResId = getIntent().getIntExtra(Constants.IntentPassingParams.IMG_PLACEHOLDER, -1);
         spanCount = getIntent().getIntExtra(Constants.IntentPassingParams.COUNT, 2);
 
-        adapter = new GridImagesAdapter(this, imageURLs, imgPlaceHolderResId);
+        adapter = new GridImagesAdapter(this, images, imgPlaceHolderResId);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
         mRecyclerView.setAdapter(adapter);
     }
@@ -49,9 +49,9 @@ public final class ZGridActivity extends BaseActivity implements GridClickListen
 
     @Override
     public void onClick(int pos) {
-        ZGallery.with(this, imageURLs)
-                .setToolbarTitleColor(ZColor.WHITE)
-                .setToolbarColorResId(toolbarColorResId)
+        ZGallery.with(this, images)
+                .setToolbarTitleColor(Color.WHITE)
+                .setToolbarColor(toolbarColor)
                 .setSelectedImgPosition(pos)
                 .setTitle(mToolbar.getTitle().toString())
                 .show();

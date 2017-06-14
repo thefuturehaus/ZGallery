@@ -1,15 +1,16 @@
 package com.mzelzoghbi.zgallery.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mzelzoghbi.zgallery.Constants;
 import com.mzelzoghbi.zgallery.R;
-import com.mzelzoghbi.zgallery.entities.ZColor;
+import com.mzelzoghbi.zgallery.ZImage;
 
 import java.util.ArrayList;
 
@@ -18,9 +19,10 @@ import java.util.ArrayList;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
-    protected ArrayList<String> imageURLs;
-    protected ZColor toolbarTitleColor;
-    protected int toolbarColorResId;
+    protected ArrayList<ZImage> images;
+    protected int toolbarTitleColor;
+    protected int toolbarColor;
+    protected boolean showHorizontalList;
     private String title;
 
     @Override
@@ -31,22 +33,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // get values
-        imageURLs = getIntent().getStringArrayListExtra(Constants.IntentPassingParams.IMAGES);
-        toolbarColorResId = getIntent().getIntExtra(Constants.IntentPassingParams.TOOLBAR_COLOR_ID, -1);
+        images = (ArrayList<ZImage>) getIntent().getSerializableExtra(Constants.IntentPassingParams.IMAGES);
+        toolbarColor = getIntent().getIntExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, Color.BLACK);
         title = getIntent().getStringExtra(Constants.IntentPassingParams.TITLE);
-        toolbarTitleColor = (ZColor) getIntent().getSerializableExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR);
+        toolbarTitleColor = getIntent().getIntExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, Color.WHITE);
+        showHorizontalList = getIntent().getBooleanExtra(Constants.IntentPassingParams.HORIZONTAL_LIST, true);
 
         if (getSupportActionBar() == null) {
             setSupportActionBar(mToolbar);
             mToolbar.setVisibility(View.VISIBLE);
-            if (toolbarTitleColor == ZColor.BLACK) {
-                mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.black));
-                getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black);
-            } else {
-                mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
-                getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
-            }
-            mToolbar.setBackgroundColor(getResources().getColor(toolbarColorResId));
+
+            mToolbar.setTitleTextColor(toolbarTitleColor);
+
+            BitmapDrawable bmpDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.tinted_arrow_back, getTheme());
+            bmpDrawable.setTint(toolbarTitleColor);
+            getSupportActionBar().setHomeAsUpIndicator(bmpDrawable);
+
+            mToolbar.setBackgroundColor(toolbarColor);
+
             if (title != null) {
                 getSupportActionBar().setTitle(title);
             }

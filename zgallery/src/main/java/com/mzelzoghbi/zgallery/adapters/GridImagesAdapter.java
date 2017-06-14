@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.mzelzoghbi.zgallery.ImageViewHolder;
 import com.mzelzoghbi.zgallery.R;
+import com.mzelzoghbi.zgallery.ZImage;
 import com.mzelzoghbi.zgallery.adapters.listeners.GridClickListener;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
  * Created by mohamedzakaria on 8/7/16.
  */
 public class GridImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
-    private ArrayList<String> imageURLs;
+    private ArrayList<ZImage> images;
     private Activity mActivity;
     private int imgPlaceHolderResId = -1;
     private GridClickListener clickListener;
 
-    public GridImagesAdapter(Activity activity, ArrayList<String> imageURLs, int imgPlaceHolderResId) {
-        this.imageURLs = imageURLs;
+    public GridImagesAdapter(Activity activity, ArrayList<ZImage> images, int imgPlaceHolderResId) {
+        this.images = images;
         this.mActivity = activity;
         this.imgPlaceHolderResId = imgPlaceHolderResId;
         this.clickListener = (GridClickListener) activity;
@@ -36,7 +37,7 @@ public class GridImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, final int position) {
-        Glide.with(mActivity).load(imageURLs.get(position))
+        Glide.with(mActivity).load(images.get(position).getUrl())
                 .placeholder(imgPlaceHolderResId != -1 ? imgPlaceHolderResId : R.drawable.placeholder)
                 .into(holder.image);
 
@@ -50,6 +51,6 @@ public class GridImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public int getItemCount() {
-        return imageURLs != null ? imageURLs.size() : 0;
+        return images != null ? images.size() : 0;
     }
 }

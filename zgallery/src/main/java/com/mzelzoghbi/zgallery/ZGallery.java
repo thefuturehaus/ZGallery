@@ -2,9 +2,9 @@ package com.mzelzoghbi.zgallery;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 
 import com.mzelzoghbi.zgallery.activities.ZGalleryActivity;
-import com.mzelzoghbi.zgallery.entities.ZColor;
 
 import java.util.ArrayList;
 
@@ -13,29 +13,31 @@ import java.util.ArrayList;
  */
 public class ZGallery {
     private Activity mActivity;
-    private ArrayList<String> imagesURLs;
+    private ArrayList<ZImage> images;
     private String title;
     private int spanCount = 2;
-    private int toolbarColor = -1;
+    private int toolbarColor = Color.BLACK;
     private int imgPlaceHolderResId = -1;
-    private ZColor color;
+    private int color;
     private int selectedImgPosition;
-    private ZColor backgroundColor;
+    private int backgroundColor;
+    private int captionColor;
+    private boolean showHorizontalList = true;
 
     private ZGallery() {
     }
 
     /**
      * @param activity   Refrence from current activity
-     * @param imagesURLs Image URLs to be displayed
+     * @param images Images to be displayed
      */
-    public static ZGallery with(Activity activity, ArrayList<String> imagesURLs) {
-        return new ZGallery(activity, imagesURLs);
+    public static ZGallery with(Activity activity, ArrayList<ZImage> images) {
+        return new ZGallery(activity, images);
     }
 
 
-    private ZGallery(Activity activity, ArrayList<String> imagesURLs) {
-        this.imagesURLs = imagesURLs;
+    private ZGallery(Activity activity, ArrayList<ZImage> images) {
+        this.images = images;
         this.mActivity = activity;
     }
 
@@ -51,24 +53,35 @@ public class ZGallery {
     }
 
     /**
-     * Setting toolbar Color ResourceId
+     * Setting toolbar {@link android.graphics.Color}
      *
-     * @param colorResId
+     * @param color
      * @return
      */
-    public ZGallery setToolbarColorResId(int colorResId) {
-        this.toolbarColor = colorResId;
+    public ZGallery setToolbarColor(int color) {
+        this.toolbarColor = color;
         return this;
     }
 
     /**
-     * Setting toolbar color
+     * Setting toolbar {@link android.graphics.Color}
      *
-     * @param color enum color may be black or white
+     * @param color
      * @return
      */
-    public ZGallery setToolbarTitleColor(ZColor color) {
+    public ZGallery setToolbarTitleColor(int color) {
         this.color = color;
+        return this;
+    }
+
+    /**
+     * Setting text caption color {@link android.graphics.Color}
+     *
+     * @param color
+     * @return
+     */
+    public ZGallery setCaptionColor(int color) {
+        this.captionColor = color;
         return this;
     }
 
@@ -83,8 +96,24 @@ public class ZGallery {
         return this;
     }
 
-    public ZGallery setGalleryBackgroundColor(ZColor backgroundColor) {
+    public ZGallery setGalleryBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+        return this;
+    }
+
+    public ZGallery setGalleryCaptionColor(int color) {
+        this.captionColor = color;
+        return this;
+    }
+
+    /**
+     * Sets whether the horizontal list of images is shown
+     *
+     * @param value
+     * @return
+     */
+    public ZGallery setShowHorizontalList(boolean value) {
+        this.showHorizontalList = value;
         return this;
     }
 
@@ -93,12 +122,14 @@ public class ZGallery {
      */
     public void show() {
         Intent gridActivity = new Intent(mActivity, ZGalleryActivity.class);
-        gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, imagesURLs);
+        gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, images);
         gridActivity.putExtra(Constants.IntentPassingParams.TITLE, title);
-        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR_ID, toolbarColor);
+        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
+        gridActivity.putExtra(Constants.IntentPassingParams.CAPTION_COLOR, captionColor);
         gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, color);
         gridActivity.putExtra(Constants.IntentPassingParams.SELECTED_IMG_POS, selectedImgPosition);
         gridActivity.putExtra(Constants.IntentPassingParams.BG_COLOR, backgroundColor);
+        gridActivity.putExtra(Constants.IntentPassingParams.HORIZONTAL_LIST, showHorizontalList);
         mActivity.startActivity(gridActivity);
     }
 }

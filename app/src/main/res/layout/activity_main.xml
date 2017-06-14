@@ -36,6 +36,26 @@
         android:onClick="galleryActivity"
         android:text="Gallery Activity" />
 
+    <Button
+        android:id="@+id/galleryActivityNoListBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/galleryActivityBtn"
+        android:layout_marginLeft="@dimen/normal"
+        android:layout_marginTop="@dimen/normal"
+        android:onClick="galleryActivityNoList"
+        android:text="Gallery Activity (no list)" />
+
+    <Button
+        android:id="@+id/galleryActivityNoListInvertedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/galleryActivityNoListBtn"
+        android:layout_marginLeft="@dimen/normal"
+        android:layout_marginTop="@dimen/normal"
+        android:onClick="galleryActivityNoListInverted"
+        android:text="Gallery Activity Inverted (no list)" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"

@@ -28,9 +28,9 @@ It includes two activities :
 Simply with a very nice builder you will find it done.
 ```java
 ZGrid.with(this, /*your string arraylist of image urls*/)
-                .setToolbarColorResId(R.color.colorPrimary) // toolbar color
+                .setToolbarColor(R.color.colorPrimary) // toolbar color
                 .setTitle("Zak Gallery") // toolbar title
-                .setToolbarTitleColor(ZColor.WHITE) // toolbar title color
+                .setToolbarTitleColor(Color.WHITE) // toolbar title color
                 .setSpanCount(3) // colums count
                 .setGridImgPlaceHolder(R.color.colorPrimary) // color placeholder for the grid image until it loads
                 .show();
@@ -41,9 +41,9 @@ ZGrid.with(this, /*your string arraylist of image urls*/)
 
 ```java
 ZGallery.with(this, /*your string arraylist of image urls*/)
-                .setToolbarTitleColor(ZColor.WHITE) // toolbar title color
-                .setGalleryBackgroundColor(ZColor.WHITE) // activity background color
-                .setToolbarColorResId(R.color.colorPrimary) // toolbar color
+                .setToolbarTitleColor(Color.WHITE) // toolbar title color
+                .setGalleryBackgroundColor(Color.WHITE) // activity background color
+                .setToolbarColor(R.color.colorPrimary) // toolbar color
                 .setTitle("Zak Gallery") // toolbar title
                 .show();
 ```
