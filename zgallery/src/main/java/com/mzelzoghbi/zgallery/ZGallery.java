@@ -1,6 +1,6 @@
 package com.mzelzoghbi.zgallery;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by mohamedzakaria on 8/11/16.
  */
 public class ZGallery {
-    private Activity mActivity;
+    private Context context;
     private ArrayList<ZImage> images;
     private String title;
     private int spanCount = 2;
@@ -28,17 +28,17 @@ public class ZGallery {
     }
 
     /**
-     * @param activity   Refrence from current activity
+     * @param context   Refrence from current context
      * @param images Images to be displayed
      */
-    public static ZGallery with(Activity activity, ArrayList<ZImage> images) {
-        return new ZGallery(activity, images);
+    public static ZGallery with(Context context, ArrayList<ZImage> images) {
+        return new ZGallery(context, images);
     }
 
 
-    private ZGallery(Activity activity, ArrayList<ZImage> images) {
+    private ZGallery(Context context, ArrayList<ZImage> images) {
         this.images = images;
-        this.mActivity = activity;
+        this.context = context;
     }
 
     /**
@@ -110,7 +110,7 @@ public class ZGallery {
      * Start the gallery activity with builder settings
      */
     public void show() {
-        Intent gridActivity = new Intent(mActivity, ZGalleryActivity.class);
+        Intent gridActivity = new Intent(context, ZGalleryActivity.class);
         gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, images);
         gridActivity.putExtra(Constants.IntentPassingParams.TITLE, title);
         gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
@@ -119,6 +119,6 @@ public class ZGallery {
         gridActivity.putExtra(Constants.IntentPassingParams.SELECTED_IMG_POS, selectedImgPosition);
         gridActivity.putExtra(Constants.IntentPassingParams.BG_COLOR, backgroundColor);
         gridActivity.putExtra(Constants.IntentPassingParams.HORIZONTAL_LIST, showHorizontalList);
-        mActivity.startActivity(gridActivity);
+        context.startActivity(gridActivity);
     }
 }

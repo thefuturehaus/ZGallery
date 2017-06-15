@@ -1,6 +1,6 @@
 package com.mzelzoghbi.zgallery;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by mohamedzakaria on 8/7/16.
  */
 public class ZGrid {
-    private Activity mActivity;
+    private Context context;
     private ArrayList<ZImage> images;
     private String title;
     private int spanCount = 2;
@@ -24,17 +24,17 @@ public class ZGrid {
     }
 
     /**
-     * @param activity   Refrence from current activity
+     * @param context   Refrence from current context
      * @param images Image URLs to be displayed
      */
-    public static ZGrid with(Activity activity, ArrayList<ZImage> images) {
-        return new ZGrid(activity, images);
+    public static ZGrid with(Context context, ArrayList<ZImage> images) {
+        return new ZGrid(context, images);
     }
 
 
-    private ZGrid(Activity activity, ArrayList<ZImage> images) {
+    private ZGrid(Context context, ArrayList<ZImage> images) {
         this.images = images;
-        this.mActivity = activity;
+        this.context = context;
     }
 
     /**
@@ -94,13 +94,13 @@ public class ZGrid {
      * Start the grid activity with builder settings
      */
     public void show() {
-        Intent gridActivity = new Intent(mActivity, ZGridActivity.class);
+        Intent gridActivity = new Intent(context, ZGridActivity.class);
         gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, images);
         gridActivity.putExtra(Constants.IntentPassingParams.COUNT, spanCount);
         gridActivity.putExtra(Constants.IntentPassingParams.TITLE, title);
         gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
         gridActivity.putExtra(Constants.IntentPassingParams.IMG_PLACEHOLDER, imgPlaceHolderResId);
         gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, color);
-        mActivity.startActivity(gridActivity);
+        context.startActivity(gridActivity);
     }
 }
