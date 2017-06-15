@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 .setToolbarColor(getResources().getColor(R.color.colorPrimary))
                 .setTitle("Zak Gallery")
                 .setShowHorizontalList(false)
+                .setCanShare(true)
                 .show();
     }
 
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 .setToolbarColor(getResources().getColor(R.color.colorPrimary))
                 .setTitle("Zak Gallery")
                 .setShowHorizontalList(false)
+                .setCanShare(true)
                 .show();
     }
 

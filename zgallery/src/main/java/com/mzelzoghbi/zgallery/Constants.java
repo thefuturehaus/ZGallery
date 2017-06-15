@@ -16,5 +16,6 @@ public final class Constants {
         public static final String BG_COLOR = "bgColor";
         public static final String CAPTION_COLOR = "captionColor";
         public static final String HORIZONTAL_LIST = "horizontalList";
+        public static final String CAN_SHARE = "canShare";
     }
 }

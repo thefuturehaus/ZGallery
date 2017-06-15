@@ -23,6 +23,7 @@ public class ZGallery {
     private int backgroundColor;
     private int captionColor;
     private boolean showHorizontalList = true;
+    private boolean canShare = false;
 
     private ZGallery() {
     }
@@ -107,18 +108,30 @@ public class ZGallery {
     }
 
     /**
+     * Sets whether the images can be shared
+     *
+     * @param value
+     * @return
+     */
+    public ZGallery setCanShare(boolean value) {
+        this.canShare = value;
+        return this;
+    }
+
+    /**
      * Start the gallery activity with builder settings
      */
     public void show() {
-        Intent gridActivity = new Intent(context, ZGalleryActivity.class);
-        gridActivity.putExtra(Constants.IntentPassingParams.IMAGES, images);
-        gridActivity.putExtra(Constants.IntentPassingParams.TITLE, title);
-        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
-        gridActivity.putExtra(Constants.IntentPassingParams.CAPTION_COLOR, captionColor);
-        gridActivity.putExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, color);
-        gridActivity.putExtra(Constants.IntentPassingParams.SELECTED_IMG_POS, selectedImgPosition);
-        gridActivity.putExtra(Constants.IntentPassingParams.BG_COLOR, backgroundColor);
-        gridActivity.putExtra(Constants.IntentPassingParams.HORIZONTAL_LIST, showHorizontalList);
-        context.startActivity(gridActivity);
+        Intent activity = new Intent(context, ZGalleryActivity.class);
+        activity.putExtra(Constants.IntentPassingParams.IMAGES, images);
+        activity.putExtra(Constants.IntentPassingParams.TITLE, title);
+        activity.putExtra(Constants.IntentPassingParams.TOOLBAR_COLOR, toolbarColor);
+        activity.putExtra(Constants.IntentPassingParams.CAPTION_COLOR, captionColor);
+        activity.putExtra(Constants.IntentPassingParams.TOOLBAR_TITLE_COLOR, color);
+        activity.putExtra(Constants.IntentPassingParams.SELECTED_IMG_POS, selectedImgPosition);
+        activity.putExtra(Constants.IntentPassingParams.BG_COLOR, backgroundColor);
+        activity.putExtra(Constants.IntentPassingParams.HORIZONTAL_LIST, showHorizontalList);
+        activity.putExtra(Constants.IntentPassingParams.CAN_SHARE, canShare);
+        context.startActivity(activity);
     }
 }
